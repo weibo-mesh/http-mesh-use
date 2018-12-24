@@ -1,0 +1,13 @@
+version: '2.1'
+
+services:
+  http-mesh-client:
+    image: weibocom/weibo-mesh:0.0.11
+    container_name: http-mesh-client
+    volumes:
+      - ../http-client/mesh-run-path:/mesh-run-path
+      - ../mesh-confs:/mesh-confs
+    working_dir: /mesh-run-path
+    command: /weibo-mesh -c /mesh-confs -pool weibo_ug-yf-core
+    ports:
+      - 9983:9983

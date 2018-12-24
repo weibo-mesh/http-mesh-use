@@ -1,0 +1,26 @@
+version: '2.1'
+
+services:
+  http-server-with-nginx-reverse-proxy:
+    image: openresty/openresty:1.13.6.2-centos
+    container_name: http-server-with-nginx-reverse-proxy
+    volumes:
+      - ../http-server:/run/http-server
+      - ../http-server/ngx.d:/usr/local/openresty/nginx/conf
+      - ../http-server/ngx.d/logs:/usr/local/openresty/nginx/logs
+    working_dir: /run/http-server
+    command: openresty -g "daemon off;"
+    ports:
+      - 80:80
+    depends_on:
+      - http-server-python
+      
+  http-server-python:
+    image: python:3.7-alpine
+    container_name: http-server-python
+    volumes:
+      - ../http-server:/run/http-server
+    working_dir: /run/http-server
+    command: python3 -m http.server --directory "/run/http-server/html/"
+    ports:
+      - 8000:8000

@@ -1,0 +1,25 @@
+version: '2.1'
+
+services:
+  http-mesh-server:
+    image: weibocom/weibo-mesh:0.0.11
+    container_name: http-mesh-server
+    volumes:
+      - ../http-server/mesh-run-path:/mesh-run-path
+      - ../mesh-confs:/mesh-confs
+    working_dir: /mesh-run-path
+    command: /weibo-mesh -c /mesh-confs -pool weibo_platform-yf-core
+    depends_on:
+      - http-server-python
+    ports:
+      - 9982:9982
+
+  http-server-python:
+    image: python:3.7-alpine
+    container_name: http-server-python
+    volumes:
+      - ../http-server:/run/http-server
+    working_dir: /run/http-server
+    command: python3 -m http.server --directory "/run/http-server/html/"
+    ports:
+      - 8000:8000
