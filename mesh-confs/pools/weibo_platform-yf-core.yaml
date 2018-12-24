@@ -1,4 +1,3 @@
-# 要替换的数量比较少的场景。简单值时比较直观
 motan-basicRefer:
   # card-abtest-basicRefer:
   #   requestTimeout: 8000
