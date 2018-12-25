@@ -2,7 +2,7 @@ version: '2.1'
 
 services:
   http-server-with-nginx-reverse-proxy:
-    image: openresty/openresty:1.13.6.2-centos
+    image: openresty/openresty:1.13.6.2-2-alpine
     container_name: http-server-with-nginx-reverse-proxy
     volumes:
       - ../http-server:/run/http-server
